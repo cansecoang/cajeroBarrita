@@ -1,0 +1,206 @@
+/* Estilos para el simulador de cajero automático - Solo retiro de efectivo */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(45deg, #1e3c72, #2a5298);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.atm-container {
+    background: #2c3e50;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 400px;
+    position: relative;
+}
+
+.atm-header {
+    background: #34495e;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 20px;
+}
+
+.card-slot {
+    background: #1a1a1a;
+    height: 8px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    position: relative;
+}
+
+.card-slot::before {
+    content: "INSERTE SU TARJETA";
+    position: absolute;
+    top: -25px;
+    left: 0;
+    color: #ecf0f1;
+    font-size: 12px;
+}
+
+.screen {
+    background: #000;
+    color: #00ff00;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-family: 'Courier New', monospace;
+    min-height: 200px;
+    border: 3px solid #34495e;
+}
+
+.screen-content {
+    display: none;
+}
+
+.screen-content.active {
+    display: block;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.key {
+    background: #34495e;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.key:hover {
+    background: #4a6741;
+    transform: translateY(-2px);
+}
+
+.key:active {
+    transform: translateY(0);
+}
+
+.key.enter {
+    background: #27ae60;
+}
+
+.key.clear {
+    background: #e74c3c;
+}
+
+.key.cancel {
+    background: #f39c12;
+}
+
+.input-display {
+    color: #00ff00;
+    font-size: 16px;
+    margin: 10px 0;
+    min-height: 20px;
+    background: #001100;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.amount-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.amount-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.amount-btn:hover {
+    background: #2980b9;
+}
+
+.cash-dispenser {
+    background: #1a1a1a;
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    position: relative;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
+
+.cash-dispenser::before {
+    content: "RETIRE SU DINERO";
+    position: absolute;
+    top: -25px;
+    left: 0;
+    color: #ecf0f1;
+    font-size: 12px;
+}
+
+.cash-dispenser.active {
+    background: #27ae60;
+    color: white;
+}
+
+.error {
+    color: #e74c3c;
+}
+
+.success {
+    color: #27ae60;
+}
+
+.balance-info {
+    background: #003300;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    border-left: 3px solid #00ff00;
+}
+
+.transaction-summary {
+    background: #001122;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+    border: 1px solid #0066cc;
+}
+
+.loading {
+    text-align: center;
+}
+
+.loading::after {
+    content: '';
+    animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60% { content: '...'; }
+    80%, 100% { content: '....'; }
+}

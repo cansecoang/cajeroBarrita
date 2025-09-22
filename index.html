@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Cajero Automático</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="atm-container">
+        <div class="atm-header">
+            <h2>BANCO DIGITAL ATM</h2>
+        </div>
+        <div class="card-slot"></div>
+        <div class="screen">
+            <!-- Pantalla de Bienvenida -->
+            <div class="screen-content active" id="pantalla-bienvenida">
+                <h3>BIENVENIDO AL CAJERO AUTOMÁTICO</h3>
+                <p>Por favor inserte su tarjeta</p>
+                <br>
+                <p>Presione ENTER para continuar</p>
+            </div>
+            <!-- Pantalla de PIN -->
+            <div class="screen-content" id="pantalla-pin">
+                <h3>INGRESE SU PIN</h3>
+                <div class="input-display" id="pin-display">****</div>
+                <p>Digite su PIN de 4 dígitos</p>
+            </div>
+            <!-- Pantalla de Retiro -->
+            <div class="screen-content" id="pantalla-retiro">
+                <h3>RETIRO DE EFECTIVO</h3>
+                <div class="balance-info">Saldo disponible: <span id="saldo-actual">$5,000</span></div>
+                <p>Seleccione el monto a retirar:</p>
+                <div class="amount-buttons">
+                    <button class="amount-btn" onclick="seleccionarMonto(100)">$100</button>
+                    <button class="amount-btn" onclick="seleccionarMonto(200)">$200</button>
+                    <button class="amount-btn" onclick="seleccionarMonto(500)">$500</button>
+                    <button class="amount-btn" onclick="seleccionarMonto(1000)">$1,000</button>
+                </div>
+                <p>O ingrese otro monto:</p>
+                <div class="input-display" id="monto-personalizado" onclick="habilitarMontoPersonalizado()">$0</div>
+            </div>
+            <!-- Pantalla de Confirmación -->
+            <div class="screen-content" id="pantalla-confirmacion">
+                <h3>CONFIRMAR RETIRO</h3>
+                <div class="transaction-summary">
+                    <p>Monto a retirar: <span id="monto-confirmar">$0</span></p>
+                    <p>Saldo restante: <span id="saldo-restante">$0</span></p>
+                </div>
+                <p>1. Confirmar</p>
+                <p>2. Cancelar</p>
+            </div>
+            <!-- Pantalla de Procesando -->
+            <div class="screen-content" id="pantalla-procesando">
+                <h3>PROCESANDO...</h3>
+                <div class="loading">Espere un momento</div>
+            </div>
+            <!-- Pantalla de Éxito -->
+            <div class="screen-content" id="pantalla-exito">
+                <h3 class="success">RETIRO EXITOSO</h3>
+                <p>Retire su dinero del dispensador</p>
+                <div class="transaction-summary">
+                    <p>Monto retirado: <span id="monto-retirado">$0</span></p>
+                    <p>Saldo final: <span id="saldo-final">$0</span></p>
+                </div>
+                <p>Presione ENTER para finalizar</p>
+            </div>
+            <!-- Pantalla de Error -->
+            <div class="screen-content" id="pantalla-error">
+                <h3 class="error">ERROR</h3>
+                <p id="mensaje-error">Fondos insuficientes</p>
+                <p>Presione ENTER para continuar</p>
+            </div>
+        </div>
+        <div class="keypad">
+            <button class="key" onclick="ingresarNumero(1)">1</button>
+            <button class="key" onclick="ingresarNumero(2)">2</button>
+            <button class="key" onclick="ingresarNumero(3)">3</button>
+            <button class="key" onclick="ingresarNumero(4)">4</button>
+            <button class="key" onclick="ingresarNumero(5)">5</button>
+            <button class="key" onclick="ingresarNumero(6)">6</button>
+            <button class="key" onclick="ingresarNumero(7)">7</button>
+            <button class="key" onclick="ingresarNumero(8)">8</button>
+            <button class="key" onclick="ingresarNumero(9)">9</button>
+            <button class="key clear" onclick="limpiarEntrada()">CLEAR</button>
+            <button class="key" onclick="ingresarNumero(0)">0</button>
+            <button class="key enter" onclick="accionEnter()">ENTER</button>
+        </div>
+        <button class="key cancel" onclick="cancelarTransaccion()" style="width: 100%; margin-bottom: 10px;">CANCELAR</button>
+        <div class="cash-dispenser" id="dispensador-efectivo"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
