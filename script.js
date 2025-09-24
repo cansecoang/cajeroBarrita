@@ -56,7 +56,7 @@ class CajeroAutomatico {
     }
 
     manejarIngresoMonto(numero) {
-        if (this.montoBuffer.length < 6) { // Máximo 6 dígitos
+        if (this.montoBuffer.length < 3) { // Máximo 3 dígitos para rango 20-500
             this.montoBuffer += numero;
             this.actualizarDisplayMonto();
         }
@@ -116,24 +116,12 @@ class CajeroAutomatico {
     mostrarPantallaRetiro() {
         document.getElementById('saldo-actual').textContent = '$' + this.saldo.toLocaleString();
         this.mostrarPantalla('pantalla-retiro');
-        this.estado = 'seleccion-monto';
-        this.montoBuffer = '';
-        this.actualizarDisplayMonto();
-    }
-
-    seleccionarMonto(monto) {
-        if (this.estado === 'seleccion-monto') {
-            this.montoRetiro = monto;
-            this.mostrarConfirmacion();
-        }
-    }
-
-    habilitarMontoPersonalizado() {
         this.estado = 'ingreso-monto';
         this.montoBuffer = '';
         this.actualizarDisplayMonto();
-        document.getElementById('monto-personalizado').style.backgroundColor = '#003300';
     }
+
+
 
     procesarMontoPersonalizado() {
         const monto = parseInt(this.montoBuffer) || 0;
@@ -143,18 +131,18 @@ class CajeroAutomatico {
             return;
         }
         
-        if (monto < 100) {
-            this.mostrarError('El monto mínimo es $100');
+        if (monto < 20) {
+            this.mostrarError('El monto mínimo es $20');
             return;
         }
         
-        if (monto % 100 !== 0) {
-            this.mostrarError('El monto debe ser múltiplo de $100');
+        if (monto > 500) {
+            this.mostrarError('El monto máximo es $500');
             return;
         }
         
-        if (monto > 2000) {
-            this.mostrarError('El monto máximo por transacción es $2,000');
+        if (monto % 10 !== 0) {
+            this.mostrarError('El monto debe ser múltiplo de $10');
             return;
         }
         
@@ -197,7 +185,35 @@ class CajeroAutomatico {
     dispensarEfectivo() {
         const dispensador = document.getElementById('dispensador-efectivo');
         dispensador.classList.add('active');
-        dispensador.innerHTML = '<div style="color: white; text-align: center; line-height: 40px; font-size: 12px;">💰 RETIRE SU DINERO 💰</div>';
+        
+        // Crear animación de billetes
+        const cantidadBilletes = Math.ceil(this.montoRetiro / 10); // Un billete por cada $10
+        dispensador.innerHTML = '';
+        
+        for (let i = 0; i < Math.min(cantidadBilletes, 15); i++) { // Máximo 15 billetes visibles
+            setTimeout(() => {
+                const billete = document.createElement('div');
+                billete.className = 'billete';
+                billete.style.cssText = `
+                    position: absolute;
+                    width: 60px;
+                    height: 25px;
+                    background: linear-gradient(90deg, #2ecc71, #27ae60);
+                    border: 1px solid #1e8449;
+                    border-radius: 3px;
+                    font-size: 8px;
+                    color: white;
+                    text-align: center;
+                    line-height: 25px;
+                    left: ${Math.random() * 70}%;
+                    top: -30px;
+                    animation: caerBillete 2s ease-in forwards;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+                `;
+                billete.textContent = '$10';
+                dispensador.appendChild(billete);
+            }, i * 150);
+        }
         
         // Volver al estado normal después de 5 segundos
         setTimeout(() => {
@@ -256,20 +272,12 @@ function accionEnter() {
     cajero.accionEnter();
 }
 
-function seleccionarMonto(monto) {
-    cajero.seleccionarMonto(monto);
-}
-
 function limpiarEntrada() {
     cajero.limpiarEntrada();
 }
 
 function cancelarTransaccion() {
     cajero.cancelarTransaccion();
-}
-
-function habilitarMontoPersonalizado() {
-    cajero.habilitarMontoPersonalizado();
 }
 
 // Inicializar cuando la página cargue

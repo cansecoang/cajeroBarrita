@@ -30,15 +30,10 @@
             <div class="screen-content" id="pantalla-retiro">
                 <h3>RETIRO DE EFECTIVO</h3>
                 <div class="balance-info">Saldo disponible: <span id="saldo-actual">$5,000</span></div>
-                <p>Seleccione el monto a retirar:</p>
-                <div class="amount-buttons">
-                    <button class="amount-btn" onclick="seleccionarMonto(100)">$100</button>
-                    <button class="amount-btn" onclick="seleccionarMonto(200)">$200</button>
-                    <button class="amount-btn" onclick="seleccionarMonto(500)">$500</button>
-                    <button class="amount-btn" onclick="seleccionarMonto(1000)">$1,000</button>
-                </div>
-                <p>O ingrese otro monto:</p>
-                <div class="input-display" id="monto-personalizado" onclick="habilitarMontoPersonalizado()">$0</div>
+                <p>Ingrese el monto a retirar:</p>
+                <p style="font-size: 12px; color: #ffff00;">Rango: $20 - $500 (múltiplos de $10)</p>
+                <div class="input-display" id="monto-personalizado">$0</div>
+                <p style="font-size: 12px;">Use el teclado para ingresar el monto</p>
             </div>
             <!-- Pantalla de Confirmación -->
             <div class="screen-content" id="pantalla-confirmacion">
